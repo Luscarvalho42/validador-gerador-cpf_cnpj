@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nome do Site</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header {
+        width: 100vw;
+        height: 100px;
+        display: grid;
+        place-items: center;
+      }
+
+      section {
+        margin-bottom: 8px;
+      }
+
+      footer {
+        background-color: #d91a3d;
+        color: white;
+        width: 100vw;
+        height: 100px;
+        display: grid;
+        place-items: center;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 24px;
+      }
+
+      a {
+        color: white;
+      }
+
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 30px;
+        height: 17px;
+      }
+
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 13px;
+        width: 13px;
+        left: 2px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+      }
+
+      input:checked + .slider {
+        background-color: #d91a3d;
+      }
+
+      input:focus + .slider {
+        box-shadow: none;
+      }
+
+      input:checked + .slider:before {
+        -webkit-transform: translateX(13px);
+        -ms-transform: translateX(13px);
+        transform: translateX(13px);
+      }
+
+      .slider.round {
+        border-radius: 34px;
+      }
+
+      .slider.round:before {
+        border-radius: 50%;
+      }
+
+      label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .input-container {
+        width: 250px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+        background-color: #ccc;
+        padding: 4px;
+        border-radius: 50px;
+      }
+
+      .button-container {
+        cursor: pointer;
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        padding: 4px;
+      }
+
+      .button-container:hover {
+        background-color: #d91a3d;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        fill: white;
+      }
+
+      #opcoes {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      #cpf-cnpj,
+      #cpf-cnpj:focus {
+        border: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        outline: none;
+        background-color: #ccc;
+        font-size: 14px;
+        text-align: center;
+        flex: 1;
+      }
+
+      #resultado {
+        font-size: 12px;
+      }
+
+      /* Dark theme */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #333;
+          color: white;
+        }
+
+        footer {
+          background-color: #b31533;
+        }
+
+        h1 {
+          color: white;
+        }
+
+        footer {
+          color: white;
+        }
+
+        .button-container:hover {
+          background-color: #b31533;
+        }
+
+        .slider {
+          background-color: #555;
+        }
+
+        .input-container {
+          background-color: #555;
+        }
+
+        #cpf-cnpj,
+        #cpf-cnpj:focus {
+          background-color: #555;
+          color: white;
+        }
+
+        input:checked + .slider {
+          background-color: #b31533;
+        }
+
+        input:focus + .slider {
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Gerador e validador de CPF/CNPJ</h1>
+    </header>
+
+    <main>
+      <section id="opcoes">
+        <div>
+          <label class="switch">
+            <input type="checkbox" id="switch" />
+            <span class="slider round"></span>
+          </label>
+          <label for="switch">Gerar CPF</label>
+        </div>
+
+        <div>
+          <label class="switch">
+            <input type="checkbox" id="switch" />
+            <span class="slider round"></span>
+          </label>
+          <label for="switch">Gerar CNPJ</label>
+        </div>
+
+        <div>
+          <label class="switch">
+            <input type="checkbox" id="switch" />
+            <span class="slider round"></span>
+          </label>
+          <label for="switch">Aplicar máscara</label>
+        </div>
+      </section>
+
+      <section>
+        <div class="input-container">
+          <div class="button-container">
+            <svg viewBox="0 0 24 24">
+              <title>Copiar</title>
+              <path
+                d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"
+              />
+            </svg>
+          </div>
+          <input id="cpf-cnpj" type="text" />
+          <div class="button-container">
+            <svg viewBox="0 0 24 24">
+              <title>Gerar</title>
+              <path
+                d="M2 12C2 16.97 6.03 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C14.63 18.25 12.86 19 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 7.03 15.97 3 11 3C6.03 3 2 7.03 2 12Z"
+              />
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <p id="resultado">CPF válido</p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Criado por <b>Lucas de Carvalho Felizardo</b></p>
+      <a href="google.com.br">Página do projeto no Github</a>
+    </footer>
+  </body>
+  <script src="main.js"></script>
+  <script>
+    const definirTemaPagina = (temaEscuroEscolhido) => {
+      temaEscuroEscolhido
+        ? document.documentElement.setAttribute("data-theme", "dark")
+        : document.documentElement.removeAttribute("data-theme");
+    };
+
+    const esquemaCores = window.matchMedia("(prefers-color-scheme: dark)");
+    definirTemaPagina(esquemaCores.matches);
+    esquemaCores.addListener((e) => definirTemaPagina(e.matches));
+  </script>
+</html>
