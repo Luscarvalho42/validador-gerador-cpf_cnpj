@@ -38,5 +38,13 @@ function gerarCNPJ() {
   return digitos.reverse().toString().replaceAll(",", "");
 }
 
-console.log(gerarCNPJ());
-console.log(gerarCPF());
+const gerarAleatorio = () => (Math.random() > 0.5 ? gerarCNPJ() : gerarCPF());
+
+const inputCpfCnpj = document.getElementById("cpf-cnpj");
+inputCpfCnpj.value = gerarAleatorio();
+
+document.getElementById("gerar").onclick = () =>
+  (inputCpfCnpj.value = gerarAleatorio());
+
+document.getElementById("copiar").onclick = () =>
+  navigator.clipboard.writeText(inputCpfCnpj.value);

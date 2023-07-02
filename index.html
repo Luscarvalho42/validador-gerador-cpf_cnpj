@@ -3,7 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nome do Site</title>
+    <title>Gerador/validador CPF e CNPJ</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643390786416309"
+      crossorigin="anonymous"
+    ></script>
+
     <style>
       * {
         margin: 0;
@@ -45,6 +53,12 @@
       h1 {
         color: #333;
         font-size: 24px;
+      }
+
+      p {
+        display: flex;
+        align-items: center;
+        gap: 4px;
       }
 
       a {
@@ -164,6 +178,14 @@
         font-size: 12px;
       }
 
+      #github-link {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: white;
+        fill: white;
+      }
+
       /* Dark theme */
       @media (prefers-color-scheme: dark) {
         body {
@@ -246,7 +268,7 @@
 
       <section>
         <div class="input-container">
-          <div class="button-container">
+          <div class="button-container" id="copiar">
             <svg viewBox="0 0 24 24">
               <title>Copiar</title>
               <path
@@ -255,7 +277,7 @@
             </svg>
           </div>
           <input id="cpf-cnpj" type="text" />
-          <div class="button-container">
+          <div class="button-container" id="gerar">
             <svg viewBox="0 0 24 24">
               <title>Gerar</title>
               <path
@@ -272,8 +294,21 @@
     </main>
 
     <footer>
-      <p>Criado por <b>Lucas de Carvalho Felizardo</b></p>
-      <a href="google.com.br">Página do projeto no Github</a>
+      <p>Criado por <b>Lucas de Carvalho Felizardo</b><img src="logo.png" /></p>
+
+      <div id="github-link">
+        <a
+          href="https://github.com/Luscarvalho42/validador-gerador-cpf_cnpj"
+          target="_blank"
+          >Página do projeto no Github</a
+        >
+        <svg viewBox="0 0 24 24" width="15" heigth="15">
+          <title>open-in-new</title>
+          <path
+            d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
+          />
+        </svg>
+      </div>
     </footer>
   </body>
   <script src="main.js"></script>
