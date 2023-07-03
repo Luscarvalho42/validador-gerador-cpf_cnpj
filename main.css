@@ -127,15 +127,15 @@ label {
 }
 
 .valido {
-  -webkit-box-shadow: 0px 0px 10px 5px limegreen;
-  -moz-box-shadow: 0px 0px 10px 5px limegreen;
-  box-shadow: 0px 0px 10px 5px limegreen;
+  -webkit-box-shadow: 0px 0px 0px 5px limegreen;
+  -moz-box-shadow: 0px 0px 0px 5px limegreen;
+  box-shadow: 0px 0px 0px 5px limegreen;
 }
 
 .invalido {
-  -webkit-box-shadow: 0px 0px 10px 5px red;
-  -moz-box-shadow: 0px 0px 10px 5px red;
-  box-shadow: 0px 0px 10px 5px red;
+  -webkit-box-shadow: 0px 0px 0px 5px red;
+  -moz-box-shadow: 0px 0px 0px 5px red;
+  box-shadow: 0px 0px 0px 5px red;
 }
 
 .button-container {
