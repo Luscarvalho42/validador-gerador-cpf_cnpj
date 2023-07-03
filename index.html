@@ -3,235 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerador/validador CPF e CNPJ</title>
+    <title>Gerador e validador de CPF/CNPJ</title>
+
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="main.css" />
 
     <script
       async
       src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5643390786416309"
       crossorigin="anonymous"
     ></script>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        width: 100vw;
-        height: 100vh;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      header {
-        width: 100vw;
-        height: 100px;
-        display: grid;
-        place-items: center;
-      }
-
-      section {
-        margin-bottom: 8px;
-      }
-
-      footer {
-        background-color: #d91a3d;
-        color: white;
-        width: 100vw;
-        height: 100px;
-        display: grid;
-        place-items: center;
-      }
-
-      h1 {
-        color: #333;
-        font-size: 24px;
-      }
-
-      p {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-      }
-
-      a {
-        color: white;
-      }
-
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 30px;
-        height: 17px;
-      }
-
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 13px;
-        width: 13px;
-        left: 2px;
-        bottom: 2px;
-        background-color: white;
-        -webkit-transition: 0.4s;
-        transition: 0.4s;
-      }
-
-      input:checked + .slider {
-        background-color: #d91a3d;
-      }
-
-      input:focus + .slider {
-        box-shadow: none;
-      }
-
-      input:checked + .slider:before {
-        -webkit-transform: translateX(13px);
-        -ms-transform: translateX(13px);
-        transform: translateX(13px);
-      }
-
-      .slider.round {
-        border-radius: 34px;
-      }
-
-      .slider.round:before {
-        border-radius: 50%;
-      }
-
-      label {
-        display: inline-block;
-        margin-right: 10px;
-      }
-
-      .input-container {
-        width: 250px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 4px;
-        background-color: #ccc;
-        padding: 4px;
-        border-radius: 50px;
-      }
-
-      .button-container {
-        cursor: pointer;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        padding: 4px;
-      }
-
-      .button-container:hover {
-        background-color: #d91a3d;
-        -webkit-transition: 0.3s;
-        transition: 0.3s;
-        fill: white;
-      }
-
-      #opcoes {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-      }
-
-      #cpf-cnpj,
-      #cpf-cnpj:focus {
-        border: none;
-        -webkit-box-shadow: none;
-        box-shadow: none;
-        outline: none;
-        background-color: #ccc;
-        font-size: 14px;
-        text-align: center;
-        flex: 1;
-      }
-
-      #resultado {
-        font-size: 12px;
-      }
-
-      #github-link {
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        color: white;
-        fill: white;
-      }
-
-      /* Dark theme */
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #333;
-          color: white;
-        }
-
-        footer {
-          background-color: #b31533;
-        }
-
-        h1 {
-          color: white;
-        }
-
-        footer {
-          color: white;
-        }
-
-        .button-container:hover {
-          background-color: #b31533;
-        }
-
-        .slider {
-          background-color: #555;
-        }
-
-        .input-container {
-          background-color: #555;
-        }
-
-        #cpf-cnpj,
-        #cpf-cnpj:focus {
-          background-color: #555;
-          color: white;
-        }
-
-        input:checked + .slider {
-          background-color: #b31533;
-        }
-
-        input:focus + .slider {
-          box-shadow: none;
-        }
-      }
-    </style>
   </head>
 
   <body>
@@ -243,7 +24,7 @@
       <section id="opcoes">
         <div>
           <label class="switch">
-            <input type="checkbox" id="switch" />
+            <input type="checkbox" id="gerar-cpf" checked />
             <span class="slider round"></span>
           </label>
           <label for="switch">Gerar CPF</label>
@@ -251,7 +32,7 @@
 
         <div>
           <label class="switch">
-            <input type="checkbox" id="switch" />
+            <input type="checkbox" id="gerar-cnpj" checked />
             <span class="slider round"></span>
           </label>
           <label for="switch">Gerar CNPJ</label>
@@ -259,7 +40,7 @@
 
         <div>
           <label class="switch">
-            <input type="checkbox" id="switch" />
+            <input type="checkbox" id="aplicar-mascara" checked />
             <span class="slider round"></span>
           </label>
           <label for="switch">Aplicar máscara</label>
@@ -267,7 +48,7 @@
       </section>
 
       <section>
-        <div class="input-container">
+        <div id="input-container" class="valido">
           <div class="button-container" id="copiar">
             <svg viewBox="0 0 24 24">
               <title>Copiar</title>
@@ -276,7 +57,13 @@
               />
             </svg>
           </div>
-          <input id="cpf-cnpj" type="text" />
+          <input
+            type="text"
+            id="cpf-cnpj"
+            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}"
+            maxlength="18"
+          />
+
           <div class="button-container" id="gerar">
             <svg viewBox="0 0 24 24">
               <title>Gerar</title>
@@ -286,10 +73,6 @@
             </svg>
           </div>
         </div>
-      </section>
-
-      <section>
-        <p id="resultado">CPF válido</p>
       </section>
     </main>
 
@@ -303,7 +86,7 @@
           >Página do projeto no Github</a
         >
         <svg viewBox="0 0 24 24" width="15" heigth="15">
-          <title>open-in-new</title>
+          <title>Abrir em outra guia</title>
           <path
             d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"
           />
@@ -311,7 +94,6 @@
       </div>
     </footer>
   </body>
-  <script src="main.js"></script>
   <script>
     const definirTemaPagina = (temaEscuroEscolhido) => {
       temaEscuroEscolhido
@@ -323,4 +105,5 @@
     definirTemaPagina(esquemaCores.matches);
     esquemaCores.addListener((e) => definirTemaPagina(e.matches));
   </script>
+  <script type="module" src="main.js"></script>
 </html>

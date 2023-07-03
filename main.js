@@ -1,50 +1,52 @@
-function gerarCPF() {
-  const digitos = [];
+import gerarAleatorio from "./gerarAleatorio.js";
+import validar from "./validar.js";
 
-  for (let index = 0; index < 9; index++) {
-    digitos.push(Math.floor(Math.random() * 10));
+function aplicarMascara(cpfCnpj) {
+  cpfCnpj = cpfCnpj.replace(/\D/g, "");
+
+  if (!document.getElementById("aplicar-mascara").checked) return cpfCnpj;
+
+  if (cpfCnpj.length === 11) {
+    cpfCnpj = cpfCnpj.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  } else if (cpfCnpj.length === 14) {
+    cpfCnpj = cpfCnpj.replace(
+      /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+      "$1.$2.$3/$4-$5"
+    );
   }
 
-  const somar = (peso) =>
-    digitos.reduce((soma, digito, index) => soma + digito * (peso - index), 0);
-
-  const digitoValidador1 = 11 - (somar(10) % 11);
-  digitos.push(digitoValidador1 >= 10 ? 0 : digitoValidador1);
-
-  const digitoValidador2 = 11 - (somar(11) % 11);
-  digitos.push(digitoValidador2 >= 10 ? 0 : digitoValidador2);
-
-  return digitos.toString().replaceAll(",", "");
+  return cpfCnpj;
 }
-
-function gerarCNPJ() {
-  let digitos = [1, 0, 0, 0];
-
-  for (let index = 0; index < 8; index++) {
-    digitos.push(Math.floor(Math.random() * 10));
-  }
-
-  const somar = (inicio, fim) =>
-    [...digitos]
-      .splice(inicio, fim)
-      .reduce((soma, digito, index) => soma + digito * (index + 2), 0);
-
-  const digitoValidador1 = 11 - ((somar(0, 8) + somar(8, 11)) % 11);
-  digitos = [digitoValidador1 >= 10 ? 0 : digitoValidador1, ...digitos];
-
-  const digitoValidador2 = 11 - ((somar(0, 8) + somar(8, 12)) % 11);
-  digitos = [digitoValidador2 >= 10 ? 0 : digitoValidador2, ...digitos];
-
-  return digitos.reverse().toString().replaceAll(",", "");
-}
-
-const gerarAleatorio = () => (Math.random() > 0.5 ? gerarCNPJ() : gerarCPF());
 
 const inputCpfCnpj = document.getElementById("cpf-cnpj");
-inputCpfCnpj.value = gerarAleatorio();
+const switchGerarCPF = document.getElementById("gerar-cpf");
+const switchGerarCNPJ = document.getElementById("gerar-cnpj");
 
-document.getElementById("gerar").onclick = () =>
-  (inputCpfCnpj.value = gerarAleatorio());
+inputCpfCnpj.value = aplicarMascara(gerarAleatorio());
+validar(inputCpfCnpj.value);
+
+document.getElementById("gerar").onclick = () => {
+  inputCpfCnpj.value = aplicarMascara(gerarAleatorio());
+  validar(inputCpfCnpj.value);
+};
 
 document.getElementById("copiar").onclick = () =>
   navigator.clipboard.writeText(inputCpfCnpj.value);
+
+document.getElementById("aplicar-mascara").onchange = () =>
+  (inputCpfCnpj.value = aplicarMascara(inputCpfCnpj.value));
+
+inputCpfCnpj.oninput = () => {
+  validar(inputCpfCnpj.value);
+  inputCpfCnpj.value = aplicarMascara(inputCpfCnpj.value);
+};
+
+switchGerarCPF.onchange = () =>
+  switchGerarCPF.checked
+    ? (switchGerarCPF.checked = true)
+    : (switchGerarCNPJ.checked = true);
+
+switchGerarCNPJ.onchange = () =>
+  switchGerarCNPJ.checked
+    ? (switchGerarCNPJ.checked = true)
+    : (switchGerarCPF.checked = true);
